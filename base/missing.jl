@@ -24,6 +24,8 @@ nonmissingtype(::Type{Missing}) = Union{}
 nonmissingtype(::Type{T}) where {T} = T
 nonmissingtype(::Type{Any}) = Any
 
+float(::Type{Union{T, Missing}}) where {T} = float(T)
+
 for U in (:Nothing, :Missing)
     @eval begin
         promote_rule(::Type{$U}, ::Type{T}) where {T} = Union{T, $U}
